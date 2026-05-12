@@ -1,4 +1,3 @@
-using SentinelX.Auth.API.Extensions;
 using SentinelX.Shared.Logging.Middleware;
 using SentinelX.Shared.Observability.Middleware;
 
@@ -11,9 +10,9 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
-        Title = "SentinelX Authentication Service API",
+        Title = "SentinelX Security Engine API",
         Version = "v1",
-        Description = "Microservice for user authentication and JWT token management"
+        Description = "Microservice for security threat detection and analysis"
     });
 
     options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -40,8 +39,7 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddAuthServices(builder.Configuration);
-builder.AddObservabilityBuilder("SentinelX.Auth.Service");
+builder.AddObservabilityBuilder("SentinelX.Security.Service");
 
 var app = builder.Build();
 
@@ -54,7 +52,7 @@ if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docke
     });
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "SentinelX Authentication Service API v1");
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "SentinelX Security Engine API v1");
         options.RoutePrefix = "swagger";
     });
 }
