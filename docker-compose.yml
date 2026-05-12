@@ -109,7 +109,7 @@ services:
     image: grafana/loki:latest
     container_name: sentinelx-loki
     ports:
-      - "3100:3100"
+      - "3101:3100"
     volumes:
       - ./infrastructure/loki/loki-config.yml:/etc/loki/local-config.yml
       - loki_data:/loki
