@@ -1,0 +1,58 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  
+  zipkin:
+    endpoint: 0.0.0.0:9411
+
+processors:
+  batch:
+    send_batch_size: 1024
+    timeout: 5s
+  
+  attributes:
+    actions:
+      - key: environment
+        value: production
+        action: insert
+
+exporters:
+  prometheus:
+    endpoint: "0.0.0.0:8888"
+  
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
+    format: json
+  
+  jaeger:
+    endpoint: jaeger-collector:14250
+    tls:
+      insecure: true
+  
+  logging:
+    loglevel: debug
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp, zipkin]
+      processors: [batch, attributes]
+      exporters: [jaeger, logging]
+    
+    metrics:
+      receivers: [otlp]
+      processors: [batch, attributes]
+      exporters: [prometheus, logging]
+    
+    logs:
+      receivers: [otlp]
+      processors: [batch, attributes]
+      exporters: [loki, logging]
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133

@@ -1,0 +1,61 @@
+# .gitignore for SentinelX Project
+
+# .NET
+bin/
+obj/
+*.csproj.user
+*.csproj.lock
+.vs/
+.vscode/
+*.sln.user
+
+# Migrations (keep in repo but mark as example)
+# */Migrations/*
+# !*/Migrations/InitialCreate.cs
+
+# Logs
+logs/
+*.log
+
+# Node / Angular
+node_modules/
+dist/
+out-tsc/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+appsettings.Development.json
+appsettings.local.json
+
+# Secrets
+secrets.json
+private-key.pem
+
+# Build outputs
+/build/
+/publish/
+
+# Angular specific
+/frontend/dist/
+/frontend/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Misc
+*.tmp
+*.temp
